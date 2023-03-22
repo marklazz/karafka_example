@@ -16,60 +16,40 @@ end
 
 class KarafkaApp < Karafka::App
   setup do |config|
-    config.kafka.seed_brokers = %w[kafka://127.0.0.1:9092]
-    config.client_id = 'karafka_example'
+    config.kafka = { 'bootstrap.servers': 'kafka:9092' }
+    config.client_id = 'example_app'
+    # Recreate consumers with each batch. This will allow Rails code reload to work in the
+    # development mode. Otherwise Karafka process would not be aware of code changes
+    config.consumer_persistence = !Rails.env.development?
     config.logger = Rails.logger
-    config.backend = :inline
-    config.batch_fetching = false
   end
 
   # Comment out this part if you are not using instrumentation and/or you are not
   # interested in logging events for certain environments. Since instrumentation
   # notifications add extra boilerplate, if you want to achieve max performance,
   # listen to only what you really need for given environment.
-  Karafka.monitor.subscribe(WaterDrop::Instrumentation::StdoutListener.new)
-  Karafka.monitor.subscribe(Karafka::Instrumentation::StdoutListener.new)
-  Karafka.monitor.subscribe(Karafka::Instrumentation::ProctitleListener.new)
+  Karafka.monitor.subscribe(Karafka::Instrumentation::LoggerListener.new)
+  # Karafka.monitor.subscribe(Karafka::Instrumentation::ProctitleListener.new)
 
-  # Uncomment that in order to achieve code reload in development mode
-  # Be aware, that this might have some side-effects. Please refer to the wiki
-  # for more details on benefits and downsides of the code reload in the
-  # development mode
-  #
-  # Karafka.monitor.subscribe(
-  #   Karafka::CodeReloader.new(
-  #     *Rails.application.reloaders
-  #   )
-  # )
+  # This logger prints the producer development info using the Karafka logger.
+  # It is similar to the consumer logger listener but producer oriented.
+  Karafka.producer.monitor.subscribe(
+    WaterDrop::Instrumentation::LoggerListener.new(Karafka.logger)
+  )
 
-  consumer_groups.draw do
-    consumer_group :example do
-      batch_fetching false
-
-      topic :users do
-        consumer UsersConsumer
-      end
+  routes.draw do
+    # Uncomment this if you use Karafka with ActiveJob
+    # You need to define the topic per each queue name you use
+    # active_job_topic :default
+    topic :example do
+      # Uncomment this if you want Karafka to manage your topics configuration
+      # Managing topics configuration via routing will allow you to ensure config consistency
+      # across multiple environments
+      #
+      # config(partitions: 2, 'cleanup.policy': 'compact')
+      consumer ExampleConsumer
     end
-
-    # topic :example do
-    #   consumer ExampleConsumer
-    # end
-
-    # consumer_group :bigger_group do
-    #   topic :test do
-    #     consumer TestConsumer
-    #   end
-    #
-    #   topic :test2 do
-    #     consumer Test2Consumer
-    #   end
-    # end
   end
 end
 
-Karafka.monitor.subscribe('app.initialized') do
-  # Put here all the things you want to do after the Karafka framework
-  # initialization
-end
-
-KarafkaApp.boot!
+Karafka::Web.enable!
