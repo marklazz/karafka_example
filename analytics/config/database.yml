@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: karafka_example_development
+  database: karafka_analytics_example_development
   url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, 'postgis') %>
   pool: 5
   connect_timeout:
