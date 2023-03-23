@@ -6,31 +6,45 @@
 
 # Ignore bundler config.
 /.bundle
+tags
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
+back_office/log/*
+analytics/log/*
+back_office/tmp/*
+analytics/tmp/*
 !/log/.keep
 !/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
+back_office/tmp/pids/*
+analytics/tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
 
 # Ignore uploaded files in development.
-/storage/*
+back_office/storage/*
+analytics/storage/*
 !/storage/.keep
 
-/public/assets
-.byebug_history
+back_office/public/assets
+analytics/public/assets
+back_office/.byebug_history
+analytics/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+back_office/config/master.key
+analytics/config/master.key
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+back_office/public/packs
+analytics/public/packs
+back_office/public/packs-test
+analytics/public/packs-test
+back_office/node_modules
+analytics/node_modules
+back_office/yarn-error.log
+analytics/yarn-error.log
+back_office/yarn-debug.log*
+analytics/yarn-debug.log*
+back_office/.yarn-integrity
+analytics/.yarn-integrity

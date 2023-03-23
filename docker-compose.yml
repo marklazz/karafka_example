@@ -1,6 +1,7 @@
 version: '3'
 volumes:
-  bundler:
+  web_bundler:
+  analytics_bundler:
   postgres: 
 networks:
   default:
@@ -12,14 +13,14 @@ services:
     stdin_open: true
     image: karafka-example-dev
     build:
-      context: .
+      context: ./back_office
       dockerfile: Dockerfile
     command: bundle exec rails server -b 0.0.0.0 -p 3000
     ports:
       - '3000:3000'
     volumes:
-      - .:/app/karafka_example:delegated
-      - bundler:/bundle
+      - ./back_office:/app/karafka_example:delegated
+      - web_bundler:/bundle
     environment:
       - BUNDLE_CACHE_ALL=false
       - BUNDLE_PATH=/bundle
@@ -108,3 +109,15 @@ services:
     <<: *web
     ports: []
     command: bundle exec karafka server
+  analytics:
+    <<: *web
+    image: karafka-example-analytics-dev
+    build:
+      context: ./analytics
+      dockerfile: Dockerfile
+    command: bundle exec rails server -b 0.0.0.0 -p 3000
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./analytics:/app/karafka_example:delegated
+      - analytics_bundler:/bundle
