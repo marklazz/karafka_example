@@ -5,7 +5,7 @@ ruby '2.7.1'
 
 gem 'mimemagic', '>= 0.3.7' 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.2', '>= 6.1.2.1'
+gem 'rails', '~> 7.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.0'
 gem 'activerecord-postgis-adapter'
