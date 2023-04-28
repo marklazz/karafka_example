@@ -22,7 +22,7 @@ services:
       - ./back_office:/app/karafka_example:delegated
       - web_bundler:/bundle
     environment:
-      - BUNDLE_CACHE_ALL=false
+      - BUNDLE_CACHE_ALL=true
       - BUNDLE_PATH=/bundle
       - BUNDLE_JOBS=4
     depends_on:
