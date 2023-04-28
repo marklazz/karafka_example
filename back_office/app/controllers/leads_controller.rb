@@ -4,7 +4,7 @@ class LeadsController < ApplicationController
   end
 
   def create
-    @lead = Lead.new(params[:lead])
+    @lead = Lead.new(form_params[:lead].merge(user: User.admin_user))
     if @lead.save
       redirect_to leads_path
     else
@@ -14,5 +14,11 @@ class LeadsController < ApplicationController
 
   def new
     @lead = Lead.new
+  end
+
+  private
+
+  def form_params
+    params.permit!
   end
 end

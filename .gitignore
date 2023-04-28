@@ -9,7 +9,9 @@
 tags
 
 # Ignore all logfiles and tempfiles.
+back_office/app/assets/builds/tailwind.css
 back_office/log/*
+analytics/app/assets/builds/tailwind.css
 analytics/log/*
 back_office/tmp/*
 analytics/tmp/*

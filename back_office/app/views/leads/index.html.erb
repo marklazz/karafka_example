@@ -35,22 +35,22 @@
         <% @leads.each do |lead| %>
           <tr>
             <td>
-              Contact Name
+              <%= lead.contact_name %>
             </td>
             <td>
-              Location
+              <%= lead.location %>
             </td>
             <td>
-              Phone
+              <%= lead.phone %>
             </td>
             <td>
-              Company
+              <%= lead.company %>
             </td>
             <td>
-              Role
+              <%= lead.role %>
             </td>
             <td>
-              User
+              <%= lead.user.full_name %>
             </td>
           </tr>
         <% end %>
