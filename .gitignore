@@ -11,8 +11,8 @@ tags
 # Ignore all logfiles and tempfiles.
 back_office/log/*
 analytics/log/*
-./back_office/tmp/*
-./analytics/tmp/*
+back_office/tmp/*
+analytics/tmp/*
 !/log/.keep
 !/tmp/.keep
 
