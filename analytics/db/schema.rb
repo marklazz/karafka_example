@@ -10,11 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_23_003142) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_03_23_003142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "postgis"
 
   create_table "opportunities", force: :cascade do |t|
     t.string "user_first_name"
@@ -27,8 +25,8 @@ ActiveRecord::Schema.define(version: 2023_03_23_003142) do
     t.string "client_industry"
     t.integer "contract_length"
     t.integer "contract_value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
