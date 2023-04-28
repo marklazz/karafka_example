@@ -44,6 +44,11 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  web_css:
+    <<: *web
+    command: bin/rails tailwindcss:watch
+    ports: []
+    depends_on: []
   # zookeeper:
   #   image: 'bitnami/zookeeper:latest'
   #   ports:
