@@ -1,3 +1,58 @@
 <h1>
   Leads
 </h1>
+
+<%= link_to 'New', new_lead_path %>
+
+<% if @leads.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Contact Name
+        </th>
+        <th>
+          Location
+        </th>
+        <th>
+          Phone
+        </th>
+        <th>
+          Company
+        </th>
+        <th>
+          Role
+        </th>
+        <th>
+          User
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @leads.each do |lead| %>
+        <tr>
+          <td>
+            Contact Name
+          </td>
+          <td>
+            Location
+          </td>
+          <td>
+            Phone
+          </td>
+          <td>
+            Company
+          </td>
+          <td>
+            Role
+          </td>
+          <td>
+            User
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+    Not leads present at this time.
+<% end %>
