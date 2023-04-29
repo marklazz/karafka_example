@@ -72,5 +72,4 @@ RUN rm -rf /tmp/* && \
 RUN bin/rails tailwindcss:install 
 RUN /bin/bash -l -c "RAILS_ENV=production SECRET_KEY_BASE=1 bundle exec rake assets:precompile"
 
-RUN bundle exec karafka-web install
 CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
