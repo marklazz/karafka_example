@@ -48,7 +48,8 @@ services:
     <<: *web
     command: bin/rails tailwindcss:watch
     ports: []
-    depends_on: []
+    depends_on:
+      - web
   # zookeeper:
   #   image: 'bitnami/zookeeper:latest'
   #   ports:
@@ -114,7 +115,7 @@ services:
     <<: *web
     ports: []
     command: bundle exec karafka server
-  analytics:
+  analytics: &analytics
     <<: *web
     image: karafka-example-analytics-dev
     build:
@@ -126,3 +127,9 @@ services:
     volumes:
       - ./analytics:/app/karafka_example:delegated
       - analytics_bundler:/bundle
+  analytics_css:
+    <<: *analytics
+    command: bin/rails tailwindcss:watch
+    ports: []
+    depends_on:
+      - analytics

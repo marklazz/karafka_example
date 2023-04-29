@@ -1,0 +1,64 @@
+<h1 class='py-8 text-xl font-bold'>
+  Opportunties
+</h1>
+
+<div class='py-8'>
+  <% if @opportunities.present? %>
+    <table class='table-auto border-x border-b w-full'>
+      <thead>
+        <tr>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Contact First Name
+          </th>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Contact Last Name
+          </th>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Contact Age
+          </th>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Contact Gender
+          </th>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Client Company
+          </th>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Client Location
+          </th>
+          <th class='font-bold p-2 border-b text-left bg-indigo-700 text-white'>
+            Client Role
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @opportunities.each do |opportunity| %>
+          <tr class='odd:bg-gray-100'>
+            <td>
+              <%= opportunity.user_first_name %>
+            </td>
+            <td>
+              <%= opportunity.user_last_name %>
+            </td>
+            <td>
+              <%= opportunity.user_age %>
+            </td>
+            <td>
+              <%= opportunity.user_gender %>
+            </td>
+            <td>
+              <%= opportunity.client_company %>
+            </td>
+            <td>
+              <%= opportunity.client_location %>
+            </td>
+            <td>
+              <%= opportunity.client_role %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    Not opportunities present at this time.
+  <% end %>
+</div>
