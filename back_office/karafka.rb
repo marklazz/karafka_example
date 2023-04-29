@@ -41,6 +41,9 @@ class KarafkaApp < Karafka::App
     # Uncomment this if you use Karafka with ActiveJob
     # You need to define the topic per each queue name you use
     # active_job_topic :default
+    # active_job_topic :default
+    # topic :lead do
+    # end
   end
 end
 

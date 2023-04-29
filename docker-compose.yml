@@ -111,10 +111,10 @@ services:
       - postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
-  karafka:
-    <<: *web
-    ports: []
-    command: bundle exec karafka server
+  # karafka:
+  #   <<: *web
+  #   ports: []
+  #   command: bundle exec karafka server
   analytics: &analytics
     <<: *web
     image: karafka-example-analytics-dev
@@ -127,6 +127,10 @@ services:
     volumes:
       - ./analytics:/app/karafka_example:delegated
       - analytics_bundler:/bundle
+  karafka_analytics:
+    <<: *analytics
+    ports: []
+    command: bundle exec karafka server
   analytics_css:
     <<: *analytics
     command: bin/rails tailwindcss:watch
