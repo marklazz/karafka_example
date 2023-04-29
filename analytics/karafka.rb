@@ -47,7 +47,7 @@ class KarafkaApp < Karafka::App
       # across multiple environments
       #
       # config(partitions: 2, 'cleanup.policy': 'compact')
-      consumer ExampleConsumer
+      consumer LeadConsumer
     end
   end
 end

@@ -6,6 +6,11 @@ class LeadsController < ApplicationController
   def create
     @lead = Lead.new(form_params[:lead].merge(user: User.admin_user))
     if @lead.save
+      payload = {
+        user: @lead.user.attributes,
+        lead: @lead.attributes
+      }
+      Karafka.producer.produce_sync(topic: 'lead', payload: payload.to_json)
       redirect_to leads_path
     else
       render :new
