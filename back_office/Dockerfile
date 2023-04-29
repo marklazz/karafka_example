@@ -69,7 +69,7 @@ RUN bundle install ${BUNDLE_INSTALL_ARGS}
 RUN rm -rf /tmp/* && \
     rm -rf .docker
 
-# RUN bundle exec rails webpacker:install
+# RUN bundle exec rails webpacker:install # https://stackoverflow.com/questions/58065428/rails-vanilla-rails-6-0-error-command-webpack-not-found
 RUN bin/rails tailwindcss:install 
 RUN /bin/bash -l -c "RAILS_ENV=production SECRET_KEY_BASE=1 bundle exec rake assets:precompile"
 
