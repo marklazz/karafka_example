@@ -10,14 +10,14 @@ if Rails.env.development?
   Rails.logger.extend(
     ActiveSupport::Logger.broadcast(
       ActiveSupport::Logger.new($stdout)
-    )
+        )
   )
 end
 
 class KarafkaApp < Karafka::App
   setup do |config|
     config.kafka = { 'bootstrap.servers': 'kafka:9092' }
-    config.client_id = 'example_app'
+    config.client_id = 'back_office'
     # Recreate consumers with each batch. This will allow Rails code reload to work in the
     # development mode. Otherwise Karafka process would not be aware of code changes
     config.consumer_persistence = !Rails.env.development?
@@ -41,7 +41,7 @@ class KarafkaApp < Karafka::App
     # Uncomment this if you use Karafka with ActiveJob
     # You need to define the topic per each queue name you use
     # active_job_topic :default
-    topic :example do
+    topic :lead do
       # Uncomment this if you want Karafka to manage your topics configuration
       # Managing topics configuration via routing will allow you to ensure config consistency
       # across multiple environments
