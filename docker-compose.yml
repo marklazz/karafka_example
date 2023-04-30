@@ -50,59 +50,6 @@ services:
     ports: []
     depends_on:
       - web
-  # zookeeper:
-  #   image: 'bitnami/zookeeper:latest'
-  #   ports:
-  #     - '2181:2181'
-  #   environment:
-  #     - ALLOW_ANONYMOUS_LOGIN=yes
-  # kafka:
-  #   image: 'bitnami/kafka:latest'
-  #   ports:
-  #     - '9092:9092'
-  #   environment:
-  #     - KAFKA_BROKER_ID=1
-  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
-  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #   depends_on:
-  #     - zookeeper
-  # zookeeper:
-  #   image: confluentinc/cp-zookeeper:latest
-  #   environment:
-  #     ZOOKEEPER_CLIENT_PORT: 2181
-  #     ZOOKEEPER_TICK_TIME: 2000
-  #   ports:
-  #     - 22181:2181
-  # kafka:
-  #   image: confluentinc/cp-kafka:latest
-  #   depends_on:
-  #     - zookeeper
-  #   ports:
-  #     - 29092:29092
-  #   environment:
-  #     KAFKA_BROKER_ID: 1
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  # zookeeper:
-  #   image: wurstmeister/zookeeper
-  #   container_name: zookeeper
-  #   ports:
-  #     - "2181:2181"
-  # kafka:
-  #   image: wurstmeister/kafka
-  #   container_name: kafka
-  #   ports:
-  #     - '9092:9092'
-  #   environment:
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     KAFKA_ADVERTISED_HOST_NAME: localhost
-  #   depends_on:
-  #     - zookeeper
   postgres:
     image: postgis/postgis:14-master
     ports:
@@ -111,10 +58,6 @@ services:
       - postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
-  # karafka:
-  #   <<: *web
-  #   ports: []
-  #   command: bundle exec karafka server
   analytics: &analytics
     <<: *web
     image: karafka-example-analytics-dev
@@ -128,6 +71,10 @@ services:
       - ./analytics:/app/karafka_example:delegated
       - analytics_bundler:/bundle
   karafka_analytics:
+    <<: *analytics
+    ports: []
+    command: bundle exec karafka server
+  karafka_analytics_2:
     <<: *analytics
     ports: []
     command: bundle exec karafka server

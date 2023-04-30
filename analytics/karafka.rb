@@ -48,6 +48,8 @@ class KarafkaApp < Karafka::App
       #
       # config(partitions: 2, 'cleanup.policy': 'compact')
       consumer LeadConsumer
+      # When a new customer is created all events are replayed for it
+      # consumer NewLeadConsumer
     end
   end
 end
